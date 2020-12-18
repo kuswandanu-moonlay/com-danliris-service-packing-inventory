@@ -197,7 +197,7 @@ namespace Com.Danliris.Service.Packing.Inventory.Application.ToBeRefactored.Garm
             bodyTable.AddCell(bodyTableHeader);
 
 
-            bodyTableHeader.Phrase = new Phrase("FOB IN USD", normal_font);
+            bodyTableHeader.Phrase = new Phrase(viewModel.CPrice + " IN USD", normal_font);
             bodyTableHeader.HorizontalAlignment = Element.ALIGN_CENTER;
             bodyTableHeader.VerticalAlignment = Element.ALIGN_CENTER;
             bodyTableHeader.Colspan = 2;
@@ -383,6 +383,7 @@ namespace Com.Danliris.Service.Packing.Inventory.Application.ToBeRefactored.Garm
             document.Add(new Paragraph("ACC NO. "+bank.AccountNumber + $"({bank.Currency.Code})", normal_font));
             document.Add(new Paragraph("A/N " + bank.accountName, normal_font));
             document.Add(new Paragraph("SWIFT CODE : "+bank.swiftCode, normal_font));
+            document.Add(new Paragraph("PURPOSE CODE : 1011", normal_font));
             document.Add(new Paragraph("\n", normal_font));
 
             #region MARK

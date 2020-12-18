@@ -1,5 +1,6 @@
 ﻿using Com.Danliris.Service.Packing.Inventory.Application.CommonViewModelObjectProperties;
 using Com.Danliris.Service.Packing.Inventory.Application.ToBeRefactored.GarmentShipping.GarmentPackingList;
+using Com.Danliris.Service.Packing.Inventory.Data.Models.Garmentshipping.GarmentPackingList;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -115,7 +116,8 @@ namespace Com.Danliris.Service.Packing.Inventory.Test.Services.GarmentShipping.G
                     },
                     ShippingMark = null,
                     SideMark = null,
-                    Remark = null
+                    Remark = null,
+                    Status = GarmentPackingListStatusEnum.DRAFT_APPROVED_SHIPPING.ToString()
                 };
             }
         }
@@ -124,6 +126,17 @@ namespace Com.Danliris.Service.Packing.Inventory.Test.Services.GarmentShipping.G
         public void Validate_DefaultValue()
         {
             GarmentPackingListUnitPackingViewModel viewModel = ViewModel;
+
+            var result = viewModel.Validate(null);
+            Assert.NotEmpty(result.ToList());
+        }
+
+        [Fact]
+        public void Validate_Items_Empty()
+        {
+            GarmentPackingListUnitPackingViewModel viewModel = ViewModel;
+            viewModel.Mode = Mode.CREATE;
+            viewModel.Items = null;
 
             var result = viewModel.Validate(null);
             Assert.NotEmpty(result.ToList());

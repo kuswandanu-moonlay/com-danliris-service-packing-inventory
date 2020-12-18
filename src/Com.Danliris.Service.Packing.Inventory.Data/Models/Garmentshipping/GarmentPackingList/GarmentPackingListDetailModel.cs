@@ -9,6 +9,7 @@ namespace Com.Danliris.Service.Packing.Inventory.Data.Models.Garmentshipping.Gar
 
         public double Carton1 { get; private set; }
         public double Carton2 { get; private set; }
+        public string Style { get; private set; }
         public string Colour { get; private set; }
         public double CartonQuantity { get; private set; }
         public double QuantityPCS { get; private set; }
@@ -19,6 +20,10 @@ namespace Com.Danliris.Service.Packing.Inventory.Data.Models.Garmentshipping.Gar
         public double Height { get; private set; }
         public double CartonsQuantity { get; private set; }
 
+        public double GrossWeight { get; private set; }
+        public double NetWeight { get; private set; }
+        public double NetNetWeight { get; private set; }
+
         public ICollection<GarmentPackingListDetailSizeModel> Sizes { get; private set; }
 
         public GarmentPackingListDetailModel()
@@ -26,10 +31,11 @@ namespace Com.Danliris.Service.Packing.Inventory.Data.Models.Garmentshipping.Gar
             Sizes = new List<GarmentPackingListDetailSizeModel>();
         }
 
-        public GarmentPackingListDetailModel(double carton1, double carton2, string colour, double cartonQuantity, double quantityPCS, double totalQuantity, double length, double width, double height, double cartonsQuantity, ICollection<GarmentPackingListDetailSizeModel> sizes)
+        public GarmentPackingListDetailModel(double carton1, double carton2, string style, string colour, double cartonQuantity, double quantityPCS, double totalQuantity, double length, double width, double height, double cartonsQuantity, double grossWeight, double netWeight, double netNetWeight, ICollection<GarmentPackingListDetailSizeModel> sizes)
         {
             Carton1 = carton1;
             Carton2 = carton2;
+            Style = style;
             Colour = colour;
             CartonQuantity = cartonQuantity;
             QuantityPCS = quantityPCS;
@@ -38,7 +44,19 @@ namespace Com.Danliris.Service.Packing.Inventory.Data.Models.Garmentshipping.Gar
             Width = width;
             Height = height;
             CartonsQuantity = cartonsQuantity;
+            GrossWeight = grossWeight;
+            NetWeight = netWeight;
+            NetNetWeight = netNetWeight;
             Sizes = sizes;
+        }
+
+        public void setPackingListItemId(int PackingListItemId, string userName, string userAgent)
+        {
+            if (this.PackingListItemId != PackingListItemId)
+            {
+                this.PackingListItemId = PackingListItemId;
+                this.FlagForUpdate(userName, userAgent);
+            }
         }
 
         public void SetCarton1(double newValue, string userName, string userAgent)
@@ -55,6 +73,15 @@ namespace Com.Danliris.Service.Packing.Inventory.Data.Models.Garmentshipping.Gar
             if (Carton2 != newValue)
             {
                 Carton2 = newValue;
+                this.FlagForUpdate(userName, userAgent);
+            }
+        }
+
+        public void SetStyle(string newValue, string userName, string userAgent)
+        {
+            if (Style != newValue)
+            {
+                Style = newValue;
                 this.FlagForUpdate(userName, userAgent);
             }
         }
